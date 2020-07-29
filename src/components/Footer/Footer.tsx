@@ -1,11 +1,8 @@
-import s from './Footer.module.sass'
+import React from "react";
+import s from "./Footer.module.scss";
 
-const Footer = () => {
-    return (
-        <footer className={s.footer}>
-            Footer block
-        </footer>
-    )
-}
+const Footer = React.memo(() => {
+  return <footer className={s.footer} />;
+});
 
-export default Footer
+export default Footer;

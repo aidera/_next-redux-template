@@ -1,0 +1,15 @@
+.toggleOpacity-enter {
+  opacity: 0;
+}
+.toggleOpacity-enter-active {
+  opacity: 1;
+  transition: opacity 300ms;
+}
+.toggleOpacity-exit {
+  opacity: 1;
+}
+.toggleOpacity-exit-active {
+  opacity: 0;
+  transition: opacity 300ms;
+}
+

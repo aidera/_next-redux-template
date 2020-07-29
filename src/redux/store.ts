@@ -1,49 +1,36 @@
-import {combineReducers, createStore, applyMiddleware, Action} from 'redux'
-import thunkMiddleware, {ThunkAction} from 'redux-thunk'
-import { composeWithDevTools } from 'redux-devtools-extension'
-import { HYDRATE, createWrapper } from 'next-redux-wrapper'
-import appReducer from './app-reducer'
+import { combineReducers, createStore, applyMiddleware, Action } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
+import { HYDRATE, createWrapper } from "next-redux-wrapper";
+import createSagaMiddleware from "redux-saga";
+import rootSaga from "./root.saga";
+import rootReducer from "./root.reducer";
 
+const sagaMiddleware = createSagaMiddleware();
 
-
-const bindMiddleware = (middleware) => {
-    if (process.env.NODE_ENV !== 'production') {
-        const { composeWithDevTools } = require('redux-devtools-extension')
-        return composeWithDevTools(applyMiddleware(...middleware))
-    }
-    return applyMiddleware(...middleware)
-}
-
-
-
-const rootReducer = combineReducers({
-    app: appReducer,
-})
-
-type RootReducerType = typeof rootReducer
-export type AppStateType = ReturnType<RootReducerType>
-export type InferActionsTypes<T> = T extends { [key: string]: (...args: any[]) => infer U} ? U : never
-export type BaseThunkType<AT extends Action, R = void> = ThunkAction<Promise<R>, AppStateType, unknown, AT>
-
-
+const bindMiddleware = (middleware: Array<any>) => {
+  if (process.env.NODE_ENV !== "production") {
+    return composeWithDevTools(applyMiddleware(...middleware));
+  }
+  return applyMiddleware(...middleware);
+};
 
 const reducer = (state, action) => {
-    if (action.type === HYDRATE) {
-        const nextState = {
-            ...state, // use previous state
-            ...action.payload, // apply delta from hydration
-        }
-        if (state.count) nextState.count = state.count // preserve count value on client side navigation
-        return nextState
-    } else {
-        return rootReducer(state, action)
-    }
-}
-
-
+  if (action.type === HYDRATE) {
+    const nextState = {
+      ...state, // use previous state
+      ...action.payload, // apply delta from hydration
+    };
+    if (state.count) nextState.count = state.count; // preserve count value on client side navigation
+    return nextState;
+  } else {
+    return rootReducer(state, action);
+  }
+};
 
 const initStore = () => {
-    return createStore(reducer, bindMiddleware([thunkMiddleware]))
-}
+  const storeToInit = createStore(reducer, bindMiddleware([sagaMiddleware]));
+  sagaMiddleware.run(rootSaga);
+  return storeToInit;
+};
 
-export const wrapper = createWrapper(initStore)
+export const wrapper = createWrapper(initStore);

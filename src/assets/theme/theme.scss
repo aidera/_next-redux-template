@@ -1,0 +1,86 @@
+@import "./variables";
+@import "./mixins";
+@import "./reset";
+@import "./fonts";
+@import "./transitions";
+
+
+
+* {
+  font-family: $font-family-1;
+  font-weight: $font-weight-normal;
+  font-size: $font-size-md;
+  color: $text-color-1;
+}
+
+body {
+  background-color: $background-color-1;
+  overflow-x: hidden;
+}
+
+.container {
+  width: 1150px;
+  margin: 0 auto;
+  @include mq($bp-xl) {
+    width: 950px;
+  }
+  @include mq($bp-lg) {
+    width: 750px;
+  }
+  @include mq($bp-md) {
+    width: 100%;
+  }
+  padding: 0 5vw;
+}
+
+.container-fluid {
+  width: 100%;
+}
+
+
+
+h1, .h1 {
+  font-size: $h1-font-size-1;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-headers;
+}
+
+h2, .h2 {
+  font-size: $h2-font-size-1;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-headers;
+}
+h3, .h3 {
+  font-size: $h3-font-size-1;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-headers;
+}
+h4, .h4 {
+  font-size: $h4-font-size-1;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-headers;
+}
+h5, .h5 {
+  font-size: $h5-font-size-1;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-headers;
+}
+
+
+p, .p {
+  font-size: $font-size-md;
+  font-weight: $font-weight-normal;
+  line-height: $line-height-text;
+}
+b, strong, .b, .strong {
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-text;
+}
+a, .link {
+  color: $link-color-1;
+  text-decoration: underline;
+  &:hover {
+    text-decoration: none;
+  }
+}

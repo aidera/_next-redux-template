@@ -1,0 +1,87 @@
+@import "../../assets/theme/variables";
+
+.button {
+  padding: 10px;
+  display: inline-block;
+  text-align: center;
+  border-radius: $border-radius-1;
+  cursor: pointer;
+}
+
+.filled {
+  color: white;
+  font-weight: $font-weight-bold;
+  background-color: $primary-color;
+  * {
+    color: white;
+    fill: white;
+    font-weight: $font-weight-bold;
+    margin: 0 5px;
+  }
+  &.primary {
+    background-color: $primary-color;
+  }
+  &.secondary {
+    background-color: $secondary-color;
+  }
+  &.success {
+    background-color: $success-color;
+  }
+  &.warning {
+    background-color: $warning-color;
+  }
+  &.danger {
+    background-color: $danger-color;
+  }
+}
+
+.outline {
+  background: none;
+  font-weight: $font-weight-normal;
+  border: $border-1;
+  color: $text-color-1;
+  * {
+    color: $text-color-1;
+    fill: $text-color-1;
+  }
+  &.primary {
+    border-color: $primary-color;
+    color: $primary-color;
+    * {
+      color: $primary-color;
+      fill: $primary-color;
+    }
+  }
+  &.secondary {
+    border-color: $secondary-color;
+    color: $secondary-color;
+    * {
+      color: $secondary-color;
+      fill: $secondary-color;
+    }
+  }
+  &.success {
+    border-color: $success-color;
+    color: $success-color;
+    * {
+      color: $success-color;
+      fill: $success-color;
+    }
+  }
+  &.warning {
+    border-color: $warning-color;
+    color: $warning-color;
+    * {
+      color: $warning-color;
+      fill: $warning-color;
+    }
+  }
+  &.danger {
+    border-color: $danger-color;
+    color: $danger-color;
+    * {
+      color: $danger-color;
+      fill: $danger-color;
+    }
+  }
+}

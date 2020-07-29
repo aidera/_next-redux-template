@@ -1,0 +1,39 @@
+.page {
+  position: relative;
+  display: flex;
+  height: 100%;
+  min-height: 100vh ;
+
+  .formBlock, .imgBlock {
+    position: relative;
+    width: 50%;
+    height: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+  }
+  .formBlock {
+    padding: 20px
+  }
+  .form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+  }
+  h1 {
+    margin-bottom: 20px;
+  }
+  .imgBlock {
+    img {
+      position: absolute;
+      height: auto;
+      width: auto;
+      min-height: 100%;
+      min-width: 100%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}

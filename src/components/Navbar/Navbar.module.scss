@@ -1,0 +1,55 @@
+@import "../../assets/theme/variables";
+
+.navbar {
+
+  .navbarPanel {
+    position: fixed;
+    top: 0;
+
+    height: 100%;
+    width: 100%;
+    max-width: 300px;
+    background-color: $background-color-1;
+    z-index: 10;
+
+    .closeButton {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      img, svg {
+        width: 30px;
+        height: 30px;
+      }
+    }
+
+    nav {
+      margin-top: 100px;
+
+      a {
+        display: block;
+        padding: 10px;
+        text-align: center;
+      }
+    }
+  }
+}
+
+
+
+
+
+.navbarPanelTransitionEnter {
+  left: -100%;
+}
+.navbarPanelTransitionEnterActive {
+  left: 0;
+  transition: all $transition-1;
+}
+.navbarPanelTransitionExit {
+  left: 0;
+}
+.navbarPanelTransitionExitActive {
+  left: -100%;
+  transition: all $transition-1;
+}
+
