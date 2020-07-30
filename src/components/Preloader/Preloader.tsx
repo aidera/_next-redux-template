@@ -4,7 +4,7 @@ import s from "./Preloader.module.scss";
 const Preloader = React.memo(() => {
   return (
     <div className={s.preloader}>
-      <img src="loader.svg" alt="preloader" />
+      <img src="/loader.svg" alt="preloader" />
     </div>
   );
 });

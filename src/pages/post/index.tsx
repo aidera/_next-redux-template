@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import MainLayout from "../../layouts/MainLayout/MainLayout";
 
-const Posts: React.FC = () => {
+const Posts: React.FC = React.memo(() => {
   return (
     <MainLayout>
       <h1>Posts</h1>
@@ -13,6 +13,6 @@ const Posts: React.FC = () => {
       </h2>
     </MainLayout>
   );
-};
+});
 
 export default Posts;

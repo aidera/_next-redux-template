@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import s from "./FormControls.module.scss";
 import { errorContainer, fieldIcon, maxLengthCounter } from "./Common";
 import { IconEnum } from "../../types/Form";
-import getDocument from "../../utils/getDocument";
+import getDocument from "../../assets/utils/getDocument";
 
 interface IProps {
   name: string;
@@ -21,13 +21,7 @@ const FieldInput: React.FC<IProps> = React.memo((props: IProps) => {
 
   const [field, { error, touched }] = useField(name);
 
-  let inputElement = null;
-
-  useEffect(() => {
-    getDocument().onload = () => {
-      inputElement = document.querySelector(`#${name}`) as HTMLInputElement;
-    };
-  }, []);
+  let inputElement = document.querySelector(`#${name}`) as HTMLInputElement;
 
   return (
     <fieldset

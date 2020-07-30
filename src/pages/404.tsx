@@ -2,8 +2,9 @@ import React from "react";
 import MainLayout from "../layouts/MainLayout/MainLayout";
 import Head from "next/head";
 import Link from "next/link";
+import { NextPage } from "next";
 
-const Error: React.FC = React.memo(() => {
+const Error: NextPage = React.memo(() => {
   return (
     <>
       <Head>

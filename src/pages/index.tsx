@@ -1,25 +1,34 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { wrapper } from "../redux/store";
+import { NextPage } from "next";
 import Head from "next/head";
 import MainLayout from "../layouts/MainLayout/MainLayout";
-import { ColorEnum } from "../types/Theme";
 import Button from "../components/Button/Button";
 import Modal from "../components/Modal/Modal";
 import Preloader from "../components/Preloader/Preloader";
-import { initializeApp } from "../redux/app/app.actions";
+import { useSelector, useDispatch } from "react-redux";
+import { wrapper } from "../redux/store";
+import { END } from "redux-saga";
 import { getInitialized } from "../redux/app/app.selectors";
+import { initializeApp } from "../redux/app/app.actions";
 import { loadPosts } from "../redux/post/post.actions";
 import { getPosts } from "../redux/post/post.selectors";
+import { ColorEnum } from "../types/Theme";
 
-export const getStaticProps = wrapper.getStaticProps(async ({ store }) => {
-  if (store.getState().app.global !== null) {
-    await store.dispatch(loadPosts());
-    store.dispatch(initializeApp());
+export const getServerSideProps = wrapper.getServerSideProps(
+  async ({ store, ...ctx }) => {
+    const state = store.getState();
+    const initialized = getInitialized(state);
+    if (!initialized) {
+      store.dispatch(initializeApp());
+    }
+
+    store.dispatch(END);
+    // @ts-ignore
+    await store.sagaTask.toPromise();
   }
-});
+);
 
-const Index: React.FC = () => {
+const Index: NextPage = React.memo(() => {
   const dispatch = useDispatch();
   const initialized = useSelector(getInitialized);
   const posts = useSelector(getPosts);
@@ -27,7 +36,7 @@ const Index: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const loadData = () => {
-    dispatch(loadPosts);
+    dispatch(loadPosts());
   };
 
   const promise = () =>
@@ -53,8 +62,9 @@ const Index: React.FC = () => {
       }, 2000);
     });
 
-  if (!initialized) {
-    return <Preloader />;
+
+  if(!initialized){
+    return <Preloader />
   }
   return (
     <>
@@ -103,6 +113,6 @@ const Index: React.FC = () => {
       </MainLayout>
     </>
   );
-};
+});
 
 export default Index;

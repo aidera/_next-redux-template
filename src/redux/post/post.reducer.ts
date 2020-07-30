@@ -1,16 +1,15 @@
 import { PostActionsReturnTypes } from "./post.actions";
-import { ADD_POST, DELETE_POST, SET_POSTS } from "./post.types";
+import {
+  ADD_POST,
+  DELETE_POST,
+  SET_CURRENT_POST,
+  SET_POSTS,
+} from "./post.types";
 import { IPost } from "../../types/Post";
 
 const initialState = {
-  posts: [
-    {
-      id: 1,
-      title: "Title 1",
-      body: "Lorem ipsum",
-      userId: 1,
-    },
-  ] as IPost[],
+  posts: [] as IPost[],
+  currentPost: null as IPost | null,
   isFetching: false,
 };
 export type PostInitialStateType = typeof initialState;
@@ -36,6 +35,12 @@ const postReducer = (
       return {
         ...state,
         posts: action.payload,
+      };
+
+    case SET_CURRENT_POST:
+      return {
+        ...state,
+        currentPost: action.payload,
       };
 
     default:

@@ -5,8 +5,6 @@ import createSagaMiddleware from "redux-saga";
 import rootSaga from "./root.saga";
 import rootReducer from "./root.reducer";
 
-const sagaMiddleware = createSagaMiddleware();
-
 const bindMiddleware = (middleware: Array<any>) => {
   if (process.env.NODE_ENV !== "production") {
     return composeWithDevTools(applyMiddleware(...middleware));
@@ -17,10 +15,10 @@ const bindMiddleware = (middleware: Array<any>) => {
 const reducer = (state, action) => {
   if (action.type === HYDRATE) {
     const nextState = {
-      ...state, // use previous state
-      ...action.payload, // apply delta from hydration
+      ...state,
+      ...action.payload,
     };
-    if (state.count) nextState.count = state.count; // preserve count value on client side navigation
+    if (state.count) nextState.count = state.count;
     return nextState;
   } else {
     return rootReducer(state, action);
@@ -28,9 +26,11 @@ const reducer = (state, action) => {
 };
 
 const initStore = () => {
-  const storeToInit = createStore(reducer, bindMiddleware([sagaMiddleware]));
-  sagaMiddleware.run(rootSaga);
-  return storeToInit;
+  const sagaMiddleware = createSagaMiddleware();
+  const store = createStore(reducer, bindMiddleware([sagaMiddleware]));
+  // @ts-ignore
+  store.sagaTask = sagaMiddleware.run(rootSaga);
+  return store;
 };
 
 export const wrapper = createWrapper(initStore);

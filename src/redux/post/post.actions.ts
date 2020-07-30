@@ -1,4 +1,11 @@
-import { ADD_POST, DELETE_POST, LOAD_POSTS, SET_POSTS } from "./post.types";
+import {
+  ADD_POST,
+  DELETE_POST,
+  LOAD_POST,
+  LOAD_POSTS,
+  SET_CURRENT_POST,
+  SET_POSTS,
+} from "./post.types";
 import { IPost } from "../../types/Post";
 
 export const addPost = (payload: IPost) =>
@@ -21,9 +28,9 @@ export const loadPosts = () =>
   } as const);
 export type LoadPostsReturnType = ReturnType<typeof loadPosts>;
 
-export const loadPost = (payload: number) =>
+export const loadPost = (payload: number | null) =>
   ({
-    type: LOAD_POSTS,
+    type: LOAD_POST,
     payload,
   } as const);
 export type LoadPostReturnType = ReturnType<typeof loadPost>;
@@ -35,9 +42,17 @@ export const setPosts = (payload: IPost[]) =>
   } as const);
 export type SetPostsReturnType = ReturnType<typeof setPosts>;
 
+export const setCurrentPost = (payload: IPost | null) =>
+  ({
+    type: SET_CURRENT_POST,
+    payload,
+  } as const);
+export type SetCurrentPostReturnType = ReturnType<typeof setCurrentPost>;
+
 export type PostActionsReturnTypes =
   | AddPostTypeReturnType
   | DeletePostReturnType
   | LoadPostsReturnType
   | LoadPostReturnType
-  | SetPostsReturnType;
+  | SetPostsReturnType
+  | SetCurrentPostReturnType;
